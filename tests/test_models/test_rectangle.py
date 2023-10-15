@@ -3,6 +3,8 @@
 import unittest
 from models.rectangle import Rectangle
 from models.base import Base
+from io import StringIO
+import sys
 
 """
 Test module for Rectangle class
@@ -114,3 +116,28 @@ class TestRectangle(unittest.TestCase):
             # Test x and y values
             r = Rectangle(17, 5, -1)
             r = Rectangle(17, 5, 2, -2)
+
+    # _______________________________________
+
+    def test_area(self):
+        r1 = Rectangle(3, 2)
+        self.assertEqual(r1.area(), 6)
+
+        r2 = Rectangle(2, 10)
+        self.assertEqual(r2.area(), 20)
+
+        r3 = Rectangle(8, 7, 0, 0, 12)
+        self.assertEqual(r3.area(), 56)
+
+    # _______________________________________
+
+    def test_display(self):
+        r1 = Rectangle(4, 6)
+        my_output = StringIO()
+        sys.stdout = my_output
+        r1.display()
+        printed_output = my_output.getvalue()
+        sys.stdout = sys.__stdout__
+
+        r1_display = '####\n####\n####\n####\n####\n####'
+        self.assertEqual(printed_output.strip(), r1_display)
