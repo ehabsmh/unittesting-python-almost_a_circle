@@ -15,7 +15,19 @@ class TestBase(unittest.TestCase):
     def test_no_args(self):
         b1 = Base()
         b2 = Base()
+        # b2.id will be greater than b1.id by 1
         self.assertEqual(b1.id, b2.id - 1)
+        self.assertEqual(b2.id, b1.id + 1)
+
+    # _______________________________________
+
+    def test_none_arg(self):
+        b1 = Base(None)
+        b2 = Base(None)
+        # b2.id will be greater than b1.id by 1
+        self.assertEqual(b1.id, b2.id - 1)
+
+    # _______________________________________
 
     def test_with_args(self):
         b1 = Base(12)
@@ -24,10 +36,7 @@ class TestBase(unittest.TestCase):
         self.assertEqual(b2.id, 25)
         self.assertNotEqual(b1.id, b2.id)
 
-    def test_none_arg(self):
-        b1 = Base(None)
-        b2 = Base(None)
-        self.assertEqual(b1.id, b2.id - 1)
+    # _______________________________________
 
     def test_instantiation(self):
         b1 = Base()
@@ -35,13 +44,19 @@ class TestBase(unittest.TestCase):
         b2 = Base(12)
         self.assertIsInstance(b2, Base)
 
+    # _______________________________________
+
     def test_public_att(self):
         b1 = Base(18)
         b1.id = 20
         self.assertNotEqual(b1.id, 18)
 
+    # _______________________________________
+
     def test_hidden_att(self):
         b1 = Base()
         with self.assertRaises(AttributeError):
-            self.assertEqual(b1.__nb_objects, 1)
-            self.assertEqual(b1.nb_objects, 1)
+            print(b1.__nb_objects)
+            b1.__nb_objects
+            print(b1.nb_objects)
+            b1.__nb_objects
